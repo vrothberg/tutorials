@@ -41,12 +41,17 @@ EOF
 	rm $containerfile
 }
 
-function setup() {
-    	command -v podman >/dev/null
+function require_tool() {
+    	command -v $1 >/dev/null
     	if [ $? != 0 ]; then
-		echo $0 requires the podman package to be installed
+		echo $0 requires the $1 package to be installed
 		exit 1
     	fi
+}
+
+function setup() {
+	require_tool podman
+	require_tool skopeo
     	build_image
     	podman rm -af -t0
     	clear
