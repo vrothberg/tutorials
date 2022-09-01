@@ -1,25 +1,23 @@
 bold=$(tput bold)
-cyan=$(tput setaf 6)
 reset=$(tput sgr0)
+color="$(tput setaf 2)"
 
-SOURCE_IMAGE=registry.access.redhat.com/ubi9:latest
+# Pin it the image to a specific tag to make sure
+# the scripts won't silently regress in the future.
+SOURCE_IMAGE=registry.access.redhat.com/ubi9:9.0.0
 IMAGE=container/tutorial
 
 function prompt() {
-    read -p "${bold}$1${reset}"
-}
-
-function echo_color() {
-    echo "${cyan}$1${reset}"
+    read -p "${bold}${color}$1${reset}"
 }
 
 function echo_bold() {
-    echo "${bold}$1${reset}"
+    echo "${bold}${color}$1${reset}"
 }
 
 function run_command() {
 	prompt "\$ $*"
-	$@
+	command $@
 	read -p ""
 }
 
