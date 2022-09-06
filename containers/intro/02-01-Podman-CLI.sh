@@ -20,6 +20,12 @@ clear
 run_command podman container --help
 clear
 
+# Some distributions such as Fedora ship a `podman-docker` package.
+# There will still be a `docker` executable in the $PATH but it will actually point to Podman.
+# This way, the migration from Docker to Podman is effortless.
+run_command sudo dnf info podman-docker
+clear
+
 # Show some more podman commands and explain the command structure.
 # Sub-commands are usually structured by "objects" such as `podman {image,container,pod} $command`.
 run_command podman image --help
