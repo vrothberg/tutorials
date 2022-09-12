@@ -14,10 +14,14 @@ require_tool evince
 #  * Many users (including the Podman developers) have already been accustomed to the Docker CLI
 #  * Podman is CLI compatible to Docker but added a number of new commands
 #  * The architecture of the two tools is very different
-run_command sudo docker container --help
+
+run_command podman --help
 clear
 
 run_command podman container --help
+clear
+
+run_command sudo docker container --help
 clear
 
 # Some distributions such as Fedora ship a `podman-docker` package.

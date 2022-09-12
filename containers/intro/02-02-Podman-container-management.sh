@@ -19,6 +19,7 @@ clear
 
 # Podman ps to list running containers
 run_command podman ps --help
+clear
 run_command podman ps
 clear
 
