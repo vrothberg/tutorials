@@ -39,6 +39,11 @@ run_command podman volume inspect tutorial
 
 volumeSource=$(podman volume inspect tutorial --format "{{.Mountpoint}}")
 run_command cat $volumeSource/*
+clear
+
+# Show `volume --help` just to give a pointer.
+run_command podman volume --help
+clear
 
 # Finally, elaborate on volume options.
 # Mount the volume read-only and show a bit what that means and explain

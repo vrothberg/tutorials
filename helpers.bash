@@ -5,7 +5,7 @@ color="$(tput setaf 2)"
 # Pin it the image to a specific tag to make sure
 # the scripts won't silently regress in the future.
 SOURCE_IMAGE=registry.access.redhat.com/ubi9:9.0.0
-IMAGE=container/tutorial
+IMAGE=tutorial
 
 function prompt() {
     read -p "${bold}${color}$1${reset}"
@@ -33,7 +33,7 @@ function build_image() {
 	containerfile=$(mktemp)
 	cat >$containerfile <<EOF
 FROM $SOURCE_IMAGE
-RUN dnf install -y procps-ng
+RUN dnf install -y procps-ng diffutils
 EOF
 	run_command_no_prompt podman build -f $containerfile -t $IMAGE
 	rm $containerfile
