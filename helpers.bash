@@ -7,6 +7,8 @@ color="$(tput setaf 2)"
 SOURCE_IMAGE=registry.access.redhat.com/ubi9:9.0.0
 IMAGE=tutorial
 
+PODMAN=${PODMAN:-podman}
+
 function prompt() {
     read -p "${bold}${color}$1${reset}"
 }
@@ -35,7 +37,7 @@ function build_image() {
 FROM $SOURCE_IMAGE
 RUN dnf install -y procps-ng diffutils
 EOF
-	run_command_no_prompt podman build -f $containerfile -t $IMAGE
+	run_command_no_prompt $PODMAN build -f $containerfile -t $IMAGE
 	rm $containerfile
 }
 
@@ -51,7 +53,7 @@ function setup() {
 	require_tool podman
 	require_tool skopeo
     	build_image
-    	podman rm -af -t0
+    	$PODMAN rm -af -t0
     	clear
 }
 
