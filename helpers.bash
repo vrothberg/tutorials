@@ -6,6 +6,7 @@ color="$(tput setaf 2)"
 # the scripts won't silently regress in the future.
 SOURCE_IMAGE=registry.access.redhat.com/ubi9:9.0.0
 IMAGE=tutorial
+DINDIMAGE=nested-docker
 
 PODMAN=${PODMAN:-podman}
 
@@ -27,6 +28,30 @@ function run_command_no_prompt() {
 	echo_bold "\$ $*"
 	$@
 	echo ""
+}
+
+function run_command_root() {
+	run_command sudo $@
+}
+
+function run_command_no_prompt_root() {
+	run_command_no_prompt sudo $@
+}
+
+function run_podman() {
+	run_command $PODMAN $@
+}
+
+function run_podman_root() {
+	run_command sudo $PODMAN $@
+}
+
+function run_podman_no_prompt() {
+	run_command_no_prompt $PODMAN $@
+}
+
+function run_podman_no_prompt_root() {
+	run_command_no_prompt sudo $PODMAN $@
 }
 
 function build_image() {
@@ -52,8 +77,10 @@ function require_tool() {
 function setup() {
 	require_tool podman
 	require_tool skopeo
+	require_tool docker
     	build_image
-    	$PODMAN rm -af -t0
+    	run_podman_no_prompt rm -af -t0
+    	run_podman_no_prompt_root rm -af -t0
     	clear
 }
 
