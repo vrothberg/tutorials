@@ -22,12 +22,14 @@ name="tutorial"
 
 # Show that rootless containers run with UID `id -u`
 run_podman run --replace --rm --name=$name -d busybox sleep infinity
-run_podman top $name huser
+run_podman top $name huser,user
+run_podman kill $name
 clear
 
 # Show that rootful containers run with UID 0
 run_podman_root run --replace --rm --name=$name -d busybox sleep infinity
-run_podman_root top $name huser
+run_podman_root top $name huser,user
+run_podman_root kill $name
 clear
 
 # - The obvious security benefit of using rootless containers is that, in the rare case of an exploit, an attacker cannot gain root access if they manage to break out of a container.  When running a rootful container, the attacker gains root privileges and hence the "holy grail".  It is worth highlighting that Docker usually runs as root despite newer versions of Docker supporting to run the daemon as non-root.  In many cases, users have the illusion of running Docker as a rootless user because they are part of the "docker" group granting them access to the Docker socket and by-proxy making them root on the host.
@@ -55,7 +57,9 @@ run_command_root cat /proc/self/loginuid
 clear
 
 # Elaborate how the login UID ties into rootless (notice the user NS!) and rootful containers.
-run_podman run --rm busybox cat /proc/self/loginuid
+run_podman run -d --replace --name=$name busybox sleep infinity
+run_podman exec $name cat /proc/self/loginuid
+run_podman top $name huser,user
 run_podman_root run --rm busybox cat /proc/self/loginuid
 
 # Now show that Docker has the overflow login UID as it's started by systemd.
