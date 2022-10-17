@@ -74,13 +74,18 @@ function require_tool() {
     	fi
 }
 
+function cleanup() {
+    	run_podman_no_prompt rm -af -t0
+    	run_podman_no_prompt system prune -af
+    	run_podman_no_prompt_root rm -af -t0
+    	run_podman_no_prompt_root system prune -af
+}
+
 function setup() {
 	require_tool podman
 	require_tool skopeo
 	require_tool docker
     	build_image
-    	run_podman_no_prompt rm -af -t0
-    	run_podman_no_prompt_root rm -af -t0
     	clear
 }
 
