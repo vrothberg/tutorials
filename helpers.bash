@@ -60,7 +60,9 @@ function build_image() {
 	containerfile=$(mktemp)
 	cat >$containerfile <<EOF
 FROM $SOURCE_IMAGE
-RUN dnf install -y procps-ng diffutils
+RUN dnf install -y procps-ng
+# Create a 2nd layer to force an intermediate image
+RUN dnf install -y diffutils
 EOF
 	run_command_no_prompt $PODMAN build -f $containerfile -t $IMAGE
 	rm $containerfile
