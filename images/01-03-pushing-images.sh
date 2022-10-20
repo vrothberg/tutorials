@@ -2,23 +2,35 @@
 
 source helpers.bash
 
+if [ -z "${REGISTRY_USER}" ]; then
+    	echo "Please set REGISTRY_USER to a user on quay.io"
+    	exit 1
+fi
+
+run_podman_no_prompt logout quay.io
+
 setup
 
+QUAY_IMAGE=quay.io/$REGISTRY_USER/tutorial:image
+
+run_podman push $IMAGE $QUAY_IMAGE
+clear
+
+run_podman login -u $REGISTRY_USER quay.io
+
+run_podman push $IMAGE $QUAY_IMAGE
+clear
+
+run_podman tag $IMAGE $QUAY_IMAGE
+
+run_podman push $QUAY_IMAGE
+clear
+
 tmp=$(mktemp -d -p .)
-user="tutorial"
-pass="psssst"
-port="5000"
+run_podman push $QUAY_IMAGE dir:$tmp
 
-export PODMAN_REGISTRY_WORKDIR=$tmp
-export PODMAN=$PODMAN
+run_command tree dir:$tmp
+clear
 
-# Stop the potentially running registry first.
-#./utils/podman-registry -P $port stop
-
-# Let's first start a local registry and show the credentials.
-# User and password are used later on to login.
-run_command ./utils/podman-registry start -u $user -p $pass -P $port
-
-run_podman push $IMAGE localhost:$port/tutorial/image:latest
-
+run_command man containers-transports
 rm -rf $tmp
