@@ -33,7 +33,7 @@ clear
 tmp=$(mktemp -d -p .)
 run_podman push $QUAY_IMAGE dir:$tmp
 
-run_command tree dir:$tmp
+run_command tree $tmp
 clear
 
 # Open the transports man page and browse through it to give a feeling for what's supported.

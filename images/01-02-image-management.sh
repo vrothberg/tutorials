@@ -2,6 +2,7 @@
 
 source helpers.bash
 
+cleanup
 setup
 
 # Pull a number of images so we have something work with
@@ -39,7 +40,7 @@ run_podman image rm fedora:37
 clear
 
 # Elaborate on -f/--force
-run_podman run -d --rm -t=0 $IMAGE sleep infinity
+run_podman create $IMAGE sleep infinity
 run_podman rmi $IMAGE
 run_podman rmi --force $IMAGE
 clear
