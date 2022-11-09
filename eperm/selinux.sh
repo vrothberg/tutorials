@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
 source helpers.bash
+clear
 
 # Create a temporary directory that we can mount into the container
 tmp=$(mktemp -d)
