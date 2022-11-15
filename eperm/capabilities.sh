@@ -8,7 +8,7 @@ clear
 
 dockerfile=$(mktemp --suffix ".Dockerfile")
 cat >$dockerfile <<EOF
-FROM fedora:37
+FROM $MINIMAGE
 RUN  mknod /dev/mynull c 1 3
 EOF
 

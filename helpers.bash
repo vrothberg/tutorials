@@ -7,6 +7,7 @@ color="$(tput setaf 2)"
 SOURCE_IMAGE=registry.access.redhat.com/ubi9:9.0.0
 IMAGE=tutorial
 DINDIMAGE=nested-docker
+MINIMAGE=fedora-minimal:37
 
 PODMAN=${PODMAN:-podman}
 
