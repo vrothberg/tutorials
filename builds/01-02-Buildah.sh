@@ -3,6 +3,7 @@
 source helpers.bash
 
 cleanup
+run_podman_no_prompt pull $SOURCE_IMAGE
 clear
 
 imagename="buildah:image"
@@ -49,7 +50,7 @@ run_command buildah ps
 clear
 
 # Finally, commit the image.
-run_command buildah commit $ctrname buildah:image-v2
+run_command buildah commit $ctrname localhost/buildah:image-v2
 run_podman images
 clear
 

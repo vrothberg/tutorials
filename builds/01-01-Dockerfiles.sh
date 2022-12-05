@@ -3,6 +3,8 @@
 source helpers.bash
 
 cleanup
+# pre-pull the image to speed things up during the demo
+run_podman_no_prompt pull $SOURCE_IMAGE
 clear
 
 imagename="image:tutorial"
