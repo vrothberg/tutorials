@@ -2,12 +2,12 @@
 
 source helpers.bash
 
-#cleanup
+cleanup
 
 # Pre-fetch the golang image to not waste time during the demo
 GO_IMAGE=docker.io/golang:1.19
 run_podman_no_prompt pull $GO_IMAGE
-
+clear
 
 # This tutorial is mostly food for thought for users new to building container
 # images. We shall build an image with a Go binary and show how much space we
@@ -25,8 +25,6 @@ containerfile=$(mktemp --suffix ".Dockerfile")
 cat >$containerfile <<EOF
 FROM $GO_IMAGE
 WORKDIR /hello
-RUN ls
-RUN pwd
 RUN go build -o /bin/hello-podman hello.go
 EOF
 
@@ -36,7 +34,7 @@ run_command cat builds/hello/hello.go
 run_command cat $containerfile
 clear
 
-run_podman build -v $(pwd)/builds/hello:/hello:Z -f $containerfile -t $imagename:simple
+run_podman build --no-cache -v $(pwd)/builds/hello:/hello:Z -f $containerfile -t $imagename:simple
 clear
 
 run_podman run --rm $imagename:simple /bin/hello-podman
@@ -46,8 +44,6 @@ clear
 cat >$containerfile <<EOF
 FROM $GO_IMAGE as build-stage
 WORKDIR /hello
-RUN ls
-RUN pwd
 RUN go build -o /bin/hello-podman hello.go
 
 FROM scratch
@@ -57,10 +53,10 @@ EOF
 run_command cat $containerfile
 clear
 
-run_podman build -v $(pwd)/builds/hello:/hello:Z -f $containerfile -t $imagename:minimal
+run_podman build --no-cache -v $(pwd)/builds/hello:/hello:Z -f $containerfile -t $imagename:minimal
 clear
 
-run_podman run --rm $imagename:simple /bin/hello-podman
+run_podman run --rm $imagename:minimal /bin/hello-podman
 run_podman images
 clear
 
