@@ -4,7 +4,7 @@ source helpers.bash
 
 cleanup
 rm -f $HOME/.cache/containers/short-name-aliases.conf
-run_command_root_no_prompt docker rmi -f fedora
+run_command_no_prompt_root docker rmi -f fedora
 clear
 
 # Introduce the audience to short names and how Docker and Podman resolve them.
@@ -25,6 +25,9 @@ clear
 # discuss later on.
 run_podman pull nginx
 clear
+run_podman rmi -f nginx
+run_podman pull nginx
+clear
 
 # Show the registries.conf and explain the search registries a bit more.
 run_command less /etc/containers/registries.conf
@@ -32,6 +35,10 @@ clear
 
 # Now explain aliases.
 run_podman pull fedora
+clear
+
+run_command less /etc/containers/registries.conf.d/000-shortnames.conf
+clear
 
 # Last but not least:
 # * Elaborate on the ambiguity of short names

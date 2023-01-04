@@ -18,12 +18,15 @@ clear
 # traffic and hence avoid a rate limit is certainly helpful to me.
 #
 # OK, let's start a local mirror and configure registries.conf accordingly.
-run_podman run -d -p 5000:5000 -e REGISTRY_PROXY_REMOTEURL="https://registry-1.docker.io" docker.io/registry:2
+run_podman run -d -p 5000:5000 -e REGISTRY_PROXY_REMOTEURL="https://quay.io" registry:2
+clear
+
+run_podman pull localhost:5000/libpod/busybox
 clear
 
 cat >$CONF <<EOF
 [[registry]]
-location="docker.io"
+location="quay.io"
 
 [[registry.mirror]]
 location="localhost:5000"
@@ -33,7 +36,7 @@ EOF
 run_command cat $CONF
 clear
 
-run_podman --debug pull docker.io/library/busybox
+run_podman --debug pull quay.io/libpod/busybox
 clear
 
 run_command man containers-registries.conf

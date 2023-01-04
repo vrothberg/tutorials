@@ -55,5 +55,7 @@ insecure=true
 EOF
 
 run_command cat $CONF
-run_podman pull docker.io/tutorial/image:latest
-run_skopeo inspect docker://docker.io/tutorial/image:latest
+run_podman --log-level=debug pull docker.io/tutorial/image:latest
+clear
+
+run_command man containers-registries.conf
