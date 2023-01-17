@@ -34,7 +34,10 @@ clear
 
 kubefile=$(mktemp --suffix ".yaml")
 run_podman kube generate tutorial-pod > $kubefile
-run_command cat $kubefile
+run_command less $kubefile
+clear
+
+run_podman rm -af -t0
 clear
 
 run_podman kube play $kubefile
