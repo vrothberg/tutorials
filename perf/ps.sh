@@ -5,5 +5,5 @@ setup
 echo_bold "List $NUM_CONTAINERS containers"
 create_containers
 hyperfine --warmup 10 --runs $RUNS \
-	"$PODMAN ps -a" \
-	"$DOCKER ps -a"
+	"$ENGINE_A ps -a" \
+	"$ENGINE_B ps -a"

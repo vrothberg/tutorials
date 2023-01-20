@@ -1,5 +1,5 @@
-PODMAN=${PODMAN:-/usr/bin/podman}
-DOCKER=${DOCKER:-/usr/bin/docker}
+ENGINE_A=${PODMAN:-/usr/bin/podman}
+ENGINE_B=${DOCKER:-/usr/bin/docker}
 RUNS=${RUNS:-100}
 NUM_CONTAINERS=${NUM_CONTAINERS:-100}
 IMAGE=${IMAGE:-docker.io/library/alpine:latest}
@@ -12,21 +12,25 @@ function echo_bold() {
 }
 
 function pull_image() {
-	$PODMAN pull $IMAGE -q > /dev/null
-	$DOCKER pull $IMAGE -q > /dev/null
+	echo_bold "... pulling $IMAGE"
+	$ENGINE_A pull $IMAGE -q > /dev/null
+	$ENGINE_B pull $IMAGE -q > /dev/null
 }
 
 function setup() {
-        echo_bold "---------------------------------------------------"
-	$PODMAN system prune -f > /dev/null
-	$DOCKER system prune -f > /dev/null
+	echo_bold "---------------------------------------------------"
+	echo_bold "... comparing $ENGINE_A with $ENGINE_B"
+	echo_bold "... cleaning up previous containers and images"
+	$ENGINE_A system prune -f > /dev/null
+	$ENGINE_B system prune -f > /dev/null
 	pull_image
+	echo ""
 }
 
 function create_containers() {
 	echo_bold "... creating $NUM_CONTAINERS containers"
 	for i in $(eval echo "{0..$NUM_CONTAINERS}"); do
-		$PODMAN create $IMAGE >> /dev/null
-		$DOCKER create $IMAGE >> /dev/null
+		$ENGINE_A create $IMAGE >> /dev/null
+		$ENGINE_B create $IMAGE >> /dev/null
 	done
 }

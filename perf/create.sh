@@ -4,5 +4,5 @@ source ./helpers.bash
 setup
 echo_bold "Create $RUNS containers"
 hyperfine --warmup 10 --runs $RUNS \
-	"$PODMAN create $IMAGE" \
-	"$DOCKER create $IMAGE"
+	"$ENGINE_A create $IMAGE" \
+	"$ENGINE_B create $IMAGE"

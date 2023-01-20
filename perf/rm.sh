@@ -4,7 +4,7 @@ source ./helpers.bash
 setup
 echo_bold "Remove $RUNS container in a row"
 hyperfine --warmup 10 --runs $RUNS \
-	--prepare "$PODMAN create --name=123 $IMAGE" \
-	--prepare "$DOCKER create --name=123 $IMAGE" \
-	"$PODMAN rm 123" \
-	"$DOCKER rm 123"
+	--prepare "$ENGINE_A create --name=123 $IMAGE" \
+	--prepare "$ENGINE_B create --name=123 $IMAGE" \
+	"$ENGINE_A rm 123" \
+	"$ENGINE_B rm 123"

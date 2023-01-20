@@ -4,7 +4,7 @@ source ./helpers.bash
 setup
 echo_bold "Start $RUNS container in a row"
 hyperfine --warmup 10 --runs $RUNS \
-	--prepare "$PODMAN rm -f 123 || true; $PODMAN create --name=123 $IMAGE true" \
-	--prepare "$DOCKER rm -f 123 || true; $DOCKER create --name=123 $IMAGE true" \
-	"$PODMAN start 123" \
-	"$DOCKER start 123"
+	--prepare "$ENGINE_A rm -f 123 || true; $ENGINE_A create --name=123 $IMAGE true" \
+	--prepare "$ENGINE_B rm -f 123 || true; $ENGINE-B create --name=123 $IMAGE true" \
+	"$ENGINE_A start 123" \
+	"$ENGINE_B start 123"
