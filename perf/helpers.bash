@@ -1,5 +1,5 @@
-ENGINE_A=${PODMAN:-/usr/bin/podman}
-ENGINE_B=${DOCKER:-/usr/bin/docker}
+ENGINE_A=${ENGINE_A:-/usr/bin/podman}
+ENGINE_B=${ENGINE_B:-/usr/bin/docker}
 RUNS=${RUNS:-100}
 NUM_CONTAINERS=${NUM_CONTAINERS:-100}
 IMAGE=${IMAGE:-docker.io/library/alpine:latest}

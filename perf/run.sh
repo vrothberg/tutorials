@@ -2,7 +2,7 @@
 source ./helpers.bash
 
 setup
-echo_bold "Run $RUNS container in a row"
+echo_bold "Run $RUNS containers in a row"
 hyperfine --warmup 10 --runs $RUNS \
 	--prepare "$ENGINE_A rm -f 123 || true" \
 	--prepare "$ENGINE_B rm -f 123 || true" \
@@ -10,7 +10,7 @@ hyperfine --warmup 10 --runs $RUNS \
 	"$ENGINE_B run --name=123 $IMAGE true"
 
 setup
-echo_bold "Run and remove $RUNS container in a row"
+echo_bold "Run and remove $RUNS containers in a row"
 hyperfine --warmup 10 --runs $RUNS \
 	--prepare "$ENGINE_A rm -f 123 || true" \
 	--prepare "$ENGINE_B rm -f 123 || true" \

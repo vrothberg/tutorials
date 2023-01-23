@@ -2,7 +2,7 @@
 source ./helpers.bash
 
 setup
-echo_bold "Start $RUNS container in a row"
+echo_bold "Start $RUNS containers in a row"
 hyperfine --warmup 10 --runs $RUNS \
 	--prepare "$ENGINE_A rm -f 123 || true; $ENGINE_A create --name=123 $IMAGE true" \
 	--prepare "$ENGINE_B rm -f 123 || true; $ENGINE_B create --name=123 $IMAGE true" \
