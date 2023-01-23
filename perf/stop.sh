@@ -5,6 +5,6 @@ setup
 echo_bold "Stop $RUNS container in a row"
 hyperfine --warmup 10 --runs $RUNS \
 	--prepare "$ENGINE_A rm -f 123 || true; $ENGINE_A run -d --name=123 $IMAGE top" \
-	--prepare "$ENGINE_B rm -f 123 || true; $ENGINE-B run -d --name=123 $IMAGE top" \
+	--prepare "$ENGINE_B rm -f 123 || true; $ENGINE_B run -d --name=123 $IMAGE top" \
 	"$ENGINE_A stop 123" \
 	"$ENGINE_B stop 123"
