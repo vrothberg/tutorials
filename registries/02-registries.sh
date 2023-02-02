@@ -7,7 +7,7 @@ REGIMG=localhost:5000/tutorial/image:latest
 
 cleanup
 rm -f $CONF
-run_podman_no_prompt pull fedora
+run_podman_no_prompt pull fedora registry:2
 touch $CONF
 clear
 
