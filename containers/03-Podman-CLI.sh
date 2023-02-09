@@ -40,4 +40,4 @@ run_podman podman pull --help
 clear
 
 # Show a PDF illustrating the architectural differences between Docker and Podman
-run_command evince ./containers/data/02-01-architecture-comparision.pdf
+run_command evince ./containers/data/02-01-architecture-comparison.pdf

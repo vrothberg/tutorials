@@ -62,4 +62,4 @@ clear
 
 # The `status` above will show "conmon" as the main PID.  To elaborate on that
 # a bit, open the architecture PDF.
-run_command evince ./containers/data/02-01-architecture-comparision.pdf
+run_command evince ./containers/data/02-01-architecture-comparison.pdf
