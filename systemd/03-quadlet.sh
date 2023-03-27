@@ -90,3 +90,6 @@ clear
 # stop is a common source of surprise to users but it's really the same
 # behaviour outside of systemd.
 run_command systemctl --user stop tutorial.service
+
+# Last, point the user to the systemd unit.
+run_command podman-systemd.unit
