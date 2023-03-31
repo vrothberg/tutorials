@@ -44,13 +44,5 @@ run_podman pod ps
 run_podman ps
 clear
 
-# Elaborate on the currently being implemented vision of lifting K8s YAML to
-# THE defacto standard of declaring containerized workloads.
-# It's being used in OpenShift, Ansible, Podman, Edge, Automotive, systemd, etc.
-run_command eog ./kube/data/kube-everywhere.png
-clear
-
-# Open the support matrix upstream.  Mention that documentation is continuously
-# being improved.
-run_command firefox --new-window https://github.com/containers/podman/blob/main/docs/kubernetes_support.md
+run_command man podman-kube-play
 clear

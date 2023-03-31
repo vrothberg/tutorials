@@ -31,6 +31,7 @@ clear
 run_podman pod ps
 run_podman ps
 clear
+run_command firefox --new-window http://localhost:8080
 
 kubefile=$(mktemp --suffix ".yaml")
 run_podman kube generate tutorial-pod > $kubefile

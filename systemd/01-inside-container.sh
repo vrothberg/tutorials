@@ -2,8 +2,10 @@
 
 source helpers.bash
 
-INIT_IMG=ubi9-init run_podman_no_prompt rm -af -t0 run_podman_no_prompt pull
-$INIT_IMG clear
+INIT_IMG=ubi9-init
+run_podman_no_prompt rm -af -t0
+run_podman_no_prompt pull $INIT_IMG
+clear
 
 # Running systemd inside a container is a longstanding desire in the container
 # world.  Early on in the lifetime of Docker, the community attempted to add
@@ -27,12 +29,21 @@ $INIT_IMG clear
 # Let's start a ubi9-init container which ships with systemd pre-installed.
 # Podman will automagically setup the container to make it comfortable for
 # systemd.
+# NOTE: this command would just fail with Docker.
 run_podman run -d --name=tutorial $INIT_IMG
 
 # List the process running inside the "systemd" container to show that systemd
 # is really running inside.
 run_podman top tutorial user,pid,comm
 clear
+
+# Lift the miracle why systemd is executed by default. Explain that this won't
+# work with Docker.  Podman detects that the entrypoint/cmd is systemd (or
+# init) and will setup some mounts and make it comfortable for systemd to be
+# able to run.
+run_podman image inspect $INIT_IMG --format "{{.Config.Cmd}}"
+# Now show that /sbin/init is just a symlink to systemd
+run_podman exec tutorial ls -n /sbin/init
 
 # Get a shell into the container and play a bit.  You can run `ps`,
 # `journalctl` and `systemctl status` to elaborate a bit on that it really just
