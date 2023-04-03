@@ -35,7 +35,6 @@ run_podman run -d --name=tutorial $INIT_IMG
 # List the process running inside the "systemd" container to show that systemd
 # is really running inside.
 run_podman top tutorial user,pid,comm
-clear
 
 # Lift the miracle why systemd is executed by default. Explain that this won't
 # work with Docker.  Podman detects that the entrypoint/cmd is systemd (or
@@ -44,18 +43,13 @@ clear
 run_podman image inspect $INIT_IMG --format "{{.Config.Cmd}}"
 # Now show that /sbin/init is just a symlink to systemd
 run_podman exec tutorial ls -n /sbin/init
-
-# Get a shell into the container and play a bit.  You can run `ps`,
-# `journalctl` and `systemctl status` to elaborate a bit on that it really just
-# works.
-run_podman exec -it tutorial bash
 clear
 
 # Now install `httpd` and run via `systemctl` to put the cherry on the cake.
 run_podman exec tutorial dnf install -y httpd
 clear
-run_podman exec tutorial systemd start  httpd
-run_podman exec tutorial systemd status httpd
+run_podman exec tutorial systemctl start  httpd
+run_podman exec tutorial systemctl status httpd
 clear
 
 # Finally open the man page to explain the `--systemd` option and the various

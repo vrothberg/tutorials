@@ -10,13 +10,15 @@ run_command_no_prompt mkdir -p $QUADLETPATH
 
 UNITNAME=tutorial.container
 UNITPATH=$QUADLETPATH/$UNITNAME
+rm -f $QUADLETPATH/tutorial.*
 
-run_command_no_prompt rm -rf $UNITPATH
 run_command_no_prompt systemctl --user stop $UNITPATH
 run_command_no_prompt systemctl --user reset-failed
+run_command_no_prompt rm -rf $UNITPATH
 run_command_no_prompt systemctl --user daemon-reload
 run_command_no_prompt systemctl --user reset-failed
 run_podman_no_prompt rm -af -t0
+clear
 
 # Podman 4.4 ships with a new way of containerizing systemd services. It's a
 # declarative approach similar to Compose or K8s YAMl that allows you to write
@@ -70,10 +72,9 @@ clear
 run_command systemctl --user daemon-reload
 # The service has the same name as the $NAME.container file.
 run_command systemctl --user status tutorial.service
-clear
-
-# Now we can use systemctl to manage the services.
+# Now start the service, clear and show the status again.
 run_command systemctl --user start tutorial.service
+clear
 run_command systemctl --user status tutorial.service
 clear
 
@@ -85,6 +86,12 @@ run_podman kill tutorial
 run_podman ps
 clear
 
+# Show again the Quadlet file and point to the on-failure restart policy.
+# That's a nice occasion to elaborate on exit-code propagation from the
+# container to conmon to systemd and conmon being the main PID.
+run_command less $UNITPATH
+clear
+
 # Now stop the service.  Mention that sleep ignores SIGTERM, so Podman will
 # wait 10 seconds by default until killing a container.  The delayed service
 # stop is a common source of surprise to users but it's really the same
@@ -92,4 +99,4 @@ clear
 run_command systemctl --user stop tutorial.service
 
 # Last, point the user to the systemd unit.
-run_command podman-systemd.unit
+run_command man podman-systemd.unit
