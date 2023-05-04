@@ -69,6 +69,20 @@ EOF
 	rm $containerfile
 }
 
+function build_image_root() {
+	# The Red Hat/CentOS/Fedora images are quite trimmed down
+	# so we need to install a number of packages.
+	containerfile=$(mktemp)
+	cat >$containerfile <<EOF
+FROM $SOURCE_IMAGE
+RUN dnf install -y procps-ng
+# Create a 2nd layer to force an intermediate image
+RUN dnf install -y diffutils
+EOF
+	run_command_no_prompt_root $PODMAN build -f $containerfile -t $IMAGE
+	rm $containerfile
+}
+
 function require_tool() {
     	command -v $1 >/dev/null
     	if [ $? != 0 ]; then
