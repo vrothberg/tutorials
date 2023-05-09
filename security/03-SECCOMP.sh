@@ -28,14 +28,14 @@ clear
 # Please refer to the following article for more details:
 # https://www.redhat.com/sysadmin/container-security-seccomp
 
-run_command_root dnf install -y oci-seccomp-bpf-hook
-clear
-
 run_command less security/data/seccomp.json
 clear
 
 tmp=$(mktemp --suffix=.seccomp.json)
 rm ${tmp}
+
+run_command_root dnf install -y oci-seccomp-bpf-hook
+clear
 
 # Now run the hook via the annotation.
 run_podman_root run --annotation io.containers.trace-syscall=of:${tmp} $SOURCE_IMAGE ls /usr

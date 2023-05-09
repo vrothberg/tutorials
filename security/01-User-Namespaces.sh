@@ -4,6 +4,7 @@ source helpers.bash
 
 setup
 run_podman_no_prompt_root pull busybox
+run_podman_no_prompt_root rm -af -t0
 clear
 
 # User namespaces are at the core of (rootless) containers. User namespaces
@@ -16,7 +17,7 @@ clear
 # First show what an ordinary non-root user can run a container and become root
 # inside the container:
 run_command id
-run_podman run --rm $IMAGE id -u
+run_podman run --rm $IMAGE id
 clear
 
 # Now elaborate that container images need more than just one ID for mapping
@@ -45,3 +46,4 @@ run_podman_root top tutorial user,huser,comm
 # LDAP allow for configuring them directly in the user records and do not
 # require writing the mappings manually to /etc/sub*id.
 run_command evince security/data/user_namespace_and_id_mappings.pdf
+clear
