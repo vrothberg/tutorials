@@ -3,6 +3,7 @@
 source helpers.bash
 
 setup
+run_podman_no_prompt rm -af
 clear
 
 # Podman has always aimed at being a drop-in replacement for Docker. Initially,
@@ -22,14 +23,22 @@ clear
 # mention that the podman.socket fires the podman.service systemd service which
 # shuts down after 5 seconds without incoming traffic.
 
-docker="DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock docker"
+socket="$XDG_RUNTIME_DIR/podman/podman.sock"
+docker="DOCKER_HOST=unix://$socket docker"
 
 run_command systemctl --user start podman.socket
 clear
 
-run_command eval "$docker" pull alpine
+run_command eval $docker pull alpine
 run_command eval $docker images
-run_command eval $docker run --rm alpine echo \"I am running a Podman container with the Docker client\"
+run_command eval $docker run --name=tutorial alpine echo \"I am running a Podman container with the Docker client\"
+clear
+
+# Play a bit with a mix of using the Docker client and curl to elaborate on the
+# fact that it's really just a REST API.
+run_command eval $docker ps --all
+run_command curl -XDELETE --unix-socket $socket http:/v1.40/containers/tutorial
+run_command eval $docker ps --all
 clear
 
 # Now, let's look at the veeeery common use case of using docker-compose.
