@@ -58,6 +58,6 @@ clear
 
 prompt "Lessons learned ..."
 prompt " 1) Bootc images are OCI images with specific attributes users need to be familiar with."
-prompt " 2) When working locally, make sure to start the bootc with systemd and then podman-exec into it."
+prompt " 2) When working locally, make sure to start the bootc container with systemd and then podman-exec into it. This makes sure the systemd services have fired."
 prompt " 3) The docs contain all information but they are scattered.  We need on-boarding docs and provide best practices."
 prompt " 4) After RHEL 9.5 I want more attention for the developer experience."

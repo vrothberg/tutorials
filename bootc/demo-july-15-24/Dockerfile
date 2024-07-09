@@ -25,3 +25,7 @@ RUN ln -sfr /usr/lib/golang/bin/go /usr/bin/go
 #
 # Alternative: RUN mkdir -p /var/roothome
 #              RUN cd /var/vgrep && make build
+
+
+# NOTE: I intentionally ignore the existence of multi-stage builds.
+#       It's an on-boarding scenarion.
