@@ -29,6 +29,7 @@ function run_command_no_prompt() {
         echo ""                        
 }                                      
 
+clear
 prompt "Example scenario RHEL SST QEs will face going forward. Best practices to test on Image Mode?"
 echo ""
 
@@ -52,10 +53,11 @@ clear
 
 prompt "The next steps have already been demoed:"
 prompt " * Use bootc-image-builder to convert and boot the disk image."
-prompt " * User podman-bootc to automate the conversion and booting."
+prompt " * Use podman-bootc to automate the conversion and booting."
 clear
 
 prompt "Lessons learned ..."
-prompt " 1) Bootc images are OCI images with specific attributes users need to be familiar with"
-prompt " 2) The docs contain all information but they are scattered.  We need on-boarding docs and provide best practices."
-prompt " 3) After RHEL 9.5 I want more attention for the developer experience.
+prompt " 1) Bootc images are OCI images with specific attributes users need to be familiar with."
+prompt " 2) When working locally, make sure to start the bootc with systemd and then podman-exec into it."
+prompt " 3) The docs contain all information but they are scattered.  We need on-boarding docs and provide best practices."
+prompt " 4) After RHEL 9.5 I want more attention for the developer experience."
