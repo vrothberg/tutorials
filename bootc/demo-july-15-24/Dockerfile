@@ -1,6 +1,6 @@
 FROM quay.io/fedora/fedora-bootc:40
 
-# Install build, test and runtime dependencies
+# Install the build, test and runtime dependencies
 RUN dnf -y install git make golang bats ripgrep && dnf clean all
 
 # Clone the git-tree to /var/grep: /var is writable
@@ -28,4 +28,4 @@ RUN ln -sfr /usr/lib/golang/bin/go /usr/bin/go
 
 
 # NOTE: I intentionally ignore the existence of multi-stage builds.
-#       It's an on-boarding scenarion.
+#       It's an on-boarding scenario.
