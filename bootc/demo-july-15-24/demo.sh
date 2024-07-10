@@ -1,33 +1,6 @@
 #!/usr/bin/env sh
 
-bold=$(tput bold)      
-reset=$(tput sgr0)     
-color="$(tput setaf 2)"
-
-if [ `id -u` -ne 0 ]; then
-	echo "Please run as root"
-	exit 1
-fi
-
-function prompt() {                    
-    read -p "${bold}${color}$1${reset}"
-}                                      
-                                       
-function echo_bold() {                 
-    echo "${bold}${color}$1${reset}"   
-}                                      
-                                       
-function run_command() {               
-        prompt "\$ $*"                 
-        command $@                     
-        read -p ""                     
-}                                      
-                                       
-function run_command_no_prompt() {     
-        echo_bold "\$ $*"              
-        $@                             
-        echo ""                        
-}                                      
+source helpers.bash
 
 clear
 prompt "Example scenario RHEL SST QEs will face going forward. Best practices to test on Image Mode?"
@@ -39,10 +12,10 @@ echo ""
 prompt "After a bit of fiddling, I ended up with the following Dockerfile:"
 
 
-run_command nvim Dockerfile
+run_command nvim bootc/demo-july-15-24/Dockerfile
 clear
 
-run_command podman build -t vgrep:bootc .
+run_command podman build -t vgrep:bootc bootc/demo-july-15-24/
 clear
 
 
@@ -50,7 +23,6 @@ prompt "The user stories explicitly mentioned a local dev-test cycle with Podman
 echo""
 run_command podman run --detach --name=vgrep --replace vgrep:bootc
 
-echo""
 prompt "Running the container in --detached mode allows for systemd to be PID1 and initialize the bootc container as intended. We can now exec' into the container to get some work done:"
 echo ""
 run_command podman exec -it vgrep bash
