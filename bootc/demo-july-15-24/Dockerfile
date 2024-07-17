@@ -21,7 +21,7 @@ RUN ln -sfr /usr/lib/golang/bin/go /usr/bin/go
 # created by a systemd unit on boot/init.
 # 
 # Best practice: podman run  -d $container
-#                podman run -it $container bash
+#                podman exec -it $container bash
 #
 # Alternative: RUN mkdir -p /var/roothome
 #              RUN cd /var/vgrep && make build
