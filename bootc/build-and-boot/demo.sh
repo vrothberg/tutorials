@@ -5,6 +5,9 @@ source helpers.bash
 image="quay.io/vrothberg/build-and-boot:bootc"
 
 clear
+prompt "Hands on: bootable containers."
+
+clear
 prompt "Example scenario: Build and boot a bootable container and ship an update."
 echo ""
 
@@ -35,3 +38,7 @@ run_command podman push $image
 clear
 
 prompt "Let's update the VM!"
+clear
+
+prompt "And finally, let's rollback!"
+clear
