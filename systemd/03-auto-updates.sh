@@ -39,12 +39,12 @@ cat >$UNITPATH <<EOF
 [Container]
 Image=$REGIMG
 Exec=top
-Label=io.containers.autoupdate=registry
+AutoUpdate=registry
 ContainerName=tutorial
 EOF
 
 # Open the .container file and explain the idea of auto updates.
-run_command less $UNITPATH
+run_command vi $UNITPATH
 clear
 
 # Start the Quadlet service.
@@ -69,8 +69,6 @@ run_podman auto-update
 clear
 
 run_podman ps
-
-run_command firefox --new-windows https://www.redhat.com/sysadmin/podman-auto-updates-rollbacks
 
 run_command systemctl --user stop tutorial.service
 rm -f $CONF
