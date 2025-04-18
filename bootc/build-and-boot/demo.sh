@@ -11,9 +11,9 @@ clear
 prompt "Example scenario: Build and boot a bootable container and ship an update."
 echo ""
 
-prompt "A simple Dockerfile based on fedora-bootc:"
+prompt "A simple Containerfile based on fedora-bootc:"
 
-run_command nvim bootc/build-and-boot/Dockerfile
+run_command nvim bootc/build-and-boot/Containerfile
 clear
 
 run_command podman build -t $image bootc/build-and-boot
@@ -27,10 +27,10 @@ clear
 
 prompt "Let's pretend we need to push an urgent update!"
 
-run_command nvim bootc/build-and-boot/Dockerfile.fix
+run_command nvim bootc/build-and-boot/Containerfile.fix
 clear
 
-run_command podman build -t $image -f bootc/build-and-boot/Dockerfile.fix
+run_command podman build -t $image -f bootc/build-and-boot/Containerfile.fix
 clear
 
 prompt "Now we can push the update to the registry!"
