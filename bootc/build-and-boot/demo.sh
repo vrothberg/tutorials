@@ -2,7 +2,7 @@
 
 source helpers.bash
 
-image="quay.io/vrothberg/build-and-boot:bootc"
+image="quay.io/vrothberg/bootc:demo"
 
 clear
 prompt "Hands on: bootable containers."
