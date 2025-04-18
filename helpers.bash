@@ -5,7 +5,7 @@ color="$(tput setaf 2)"
 # Pin it the image to a specific tag to make sure
 # the scripts won't silently regress in the future.
 SOURCE_IMAGE=registry.access.redhat.com/ubi9:9.0.0
-IMAGE=tutorial
+IMAGE="${IMAGE:-tutorial}"
 DINDIMAGE=nested-docker
 MINIMAGE=fedora-minimal:37
 
