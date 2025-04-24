@@ -3,6 +3,7 @@
 source helpers.bash
 
 image="${IMAGE:-quay.io/vrothberg/bootc:demo}"
+image="quay.io/vrothberg/bootc:demo"
 dir=$(dirname ${BASH_SOURCE[0]})
 
 clear
